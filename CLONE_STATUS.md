@@ -35,8 +35,8 @@ To complete the clone, someone with access to GitLab should:
    git merge gitlab/main --allow-unrelated-histories
    # or: git merge gitlab/master --allow-unrelated-histories
    
-   # Push to GitHub
-   git push origin copilot/clone-gitlab-project
+   # Push to GitHub (replace 'main' with your target branch name)
+   git push origin main
    ```
 
 3. **Option C: Fresh clone and push**

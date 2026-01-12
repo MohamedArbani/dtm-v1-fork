@@ -24,10 +24,10 @@ echo "Fetching from GitLab..."
 git fetch "${GITLAB_REMOTE}"
 
 # Get the default branch name from GitLab
-GITLAB_BRANCH=$(git remote show "${GITLAB_REMOTE}" | grep "HEAD branch" | cut -d' ' -f5)
+GITLAB_BRANCH=$(git symbolic-ref "refs/remotes/${GITLAB_REMOTE}/HEAD" 2>/dev/null | sed "s|refs/remotes/${GITLAB_REMOTE}/||")
 
 if [ -z "$GITLAB_BRANCH" ]; then
-    echo "Warning: Could not determine GitLab default branch, trying 'main' and 'master'..."
+    echo "Warning: Could not determine GitLab default branch from symbolic-ref, trying 'main' and 'master'..."
     if git ls-remote --heads "${GITLAB_REMOTE}" main | grep -q main; then
         GITLAB_BRANCH="main"
     elif git ls-remote --heads "${GITLAB_REMOTE}" master | grep -q master; then
@@ -46,7 +46,12 @@ CURRENT_BRANCH=$(git branch --show-current)
 # Merge GitLab changes
 echo "Merging changes from gitlab/${GITLAB_BRANCH}..."
 # Use --allow-unrelated-histories for initial merge
-if git merge-base HEAD "${GITLAB_REMOTE}/${GITLAB_BRANCH}" &>/dev/null; then
+HAS_COMMON_BASE=false
+if git merge-base HEAD "${GITLAB_REMOTE}/${GITLAB_BRANCH}" >/dev/null 2>&1; then
+    HAS_COMMON_BASE=true
+fi
+
+if [ "$HAS_COMMON_BASE" = true ]; then
     git merge "${GITLAB_REMOTE}/${GITLAB_BRANCH}" --no-edit
 else
     echo "Performing initial merge with unrelated histories..."
