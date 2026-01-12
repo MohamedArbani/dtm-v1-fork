@@ -19,6 +19,7 @@ See [GITLAB_SOURCE.md](GITLAB_SOURCE.md) for detailed manual instructions.
 
 ## Documentation
 
+- **[SETUP_COMPLETE.md](SETUP_COMPLETE.md)** - Complete setup status and final steps ⭐
 - [CLONE_STATUS.md](CLONE_STATUS.md) - Current status and next steps
 - [GITLAB_SOURCE.md](GITLAB_SOURCE.md) - Detailed sync instructions
 
