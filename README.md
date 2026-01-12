@@ -4,10 +4,23 @@ This repository is a GitHub mirror of the Defi Token Manager v1 project from Git
 
 **GitLab Source:** https://gitlab.com/Defi-Token-Manager26/v1.git
 
+## ⚠️ Important: Clone Not Yet Complete
+
+Due to network access limitations, the GitLab repository content has not yet been cloned. To complete the setup:
+
+### Quick Start (Recommended)
+Run the automated sync script:
+```bash
+./sync-from-gitlab.sh
+```
+
+### Alternative: Manual Sync
+See [GITLAB_SOURCE.md](GITLAB_SOURCE.md) for detailed manual instructions.
+
 ## Documentation
 
-- See [GITLAB_SOURCE.md](GITLAB_SOURCE.md) for information about syncing with the GitLab repository
-- Use the `sync-from-gitlab.sh` script to automatically sync changes from GitLab
+- [CLONE_STATUS.md](CLONE_STATUS.md) - Current status and next steps
+- [GITLAB_SOURCE.md](GITLAB_SOURCE.md) - Detailed sync instructions
 
 ## About
 

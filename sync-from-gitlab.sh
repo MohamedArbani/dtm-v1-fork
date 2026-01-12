@@ -45,7 +45,13 @@ CURRENT_BRANCH=$(git branch --show-current)
 
 # Merge GitLab changes
 echo "Merging changes from gitlab/${GITLAB_BRANCH}..."
-git merge "${GITLAB_REMOTE}/${GITLAB_BRANCH}" --no-edit
+# Use --allow-unrelated-histories for initial merge
+if git merge-base HEAD "${GITLAB_REMOTE}/${GITLAB_BRANCH}" &>/dev/null; then
+    git merge "${GITLAB_REMOTE}/${GITLAB_BRANCH}" --no-edit
+else
+    echo "Performing initial merge with unrelated histories..."
+    git merge "${GITLAB_REMOTE}/${GITLAB_BRANCH}" --allow-unrelated-histories --no-edit
+fi
 
 # Push to GitHub
 echo "Pushing to GitHub..."
